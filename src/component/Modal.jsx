@@ -2,7 +2,7 @@ import  { useState, useRef, useEffect } from 'react';
 import { colors } from '../utils/colors';
 import { createGroup } from '../utils/api';
 
-const Modal = ({ isOpen, onClose }) => {
+const Modal = ({ isOpen, onClose,setgroups}) => {
   const [groupName, setGroupName] = useState('');
   const [color, setColor] = useState('blue');
   const modalRef = useRef(null);
@@ -35,8 +35,8 @@ const Modal = ({ isOpen, onClose }) => {
       console.log("groupName",groupName)
       console.log("color",color)
       const res= await createGroup(groupName,color);
-      console.log(res);
-      alert("group created successfully")
+      setgroups((group)=>[...group,res.data]);
+      
      } catch (error) {
         console.log(error)
      }

@@ -5,7 +5,7 @@ export const createGroup = async ( name, color ) => {
     console.log("name inside",name)
     if(!name||!color) return;
     const response = await axios({
-        url:"http://localhost:3000/api/groups",
+        url:"https://pocket-ntoes-backend.onrender.com/api/groups",
         method:"post",
         data:{
             name:name,
@@ -28,7 +28,7 @@ export const createNote = async ( id, content ) => {
     console.log("name inside",name)
     if(!id||!content) return;
     const response = await axios({
-        url:`http://localhost:3000/api/groups/${id}/notes`,
+        url:`https://pocket-ntoes-backend.onrender.com/api/groups/${id}/notes`,
         method:"post",
         data:{
             content:content,

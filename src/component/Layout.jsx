@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import Modal from "./Modal";
 import useFetchGroup from "../hooks/useFetchGroup";
@@ -7,7 +7,12 @@ export const Layout = ({children}) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [activeGroup,setactiveGroup]=useState(null);
   const [isopen, setisopen] = useState(false);
-  const {data}=useFetchGroup("http://localhost:3000/api/groups");
+  const {data}=useFetchGroup("https://pocket-ntoes-backend.onrender.com/api/groups");
+  const [groups,setgroups]=useState()
+  useEffect(() => {
+    setgroups(data)
+  }, [data]);
+  
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
@@ -23,7 +28,7 @@ export const Layout = ({children}) => {
   } transition-transform duration-300 md:relative md:translate-x-0  md:h-full`}
 >
   
-  <Sidebar setisopen={setisopen} groups={data} setactiveGroup={setactiveGroup}/>
+  <Sidebar setisopen={setisopen} groups={groups} setactiveGroup={setactiveGroup} activeGroup={activeGroup}/>
   <button
     className="absolute top-4 right-4 p-2 bg-gray-200 rounded md:hidden"
     onClick={toggleSidebar}
@@ -51,6 +56,6 @@ export const Layout = ({children}) => {
 </div>
 </div>
 
-<Modal isOpen={isopen} onClose={()=>{setisopen(false)}}></Modal></>
+<Modal isOpen={isopen}  setgroups={setgroups}onClose={()=>{setisopen(false)}} ></Modal></>
 
 };
