@@ -5,11 +5,13 @@ import useFetchGroup from "../hooks/useFetchGroup";
 
 export const Layout = ({children}) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [activeGroup,setactiveGroup]=useState(null);
   const [isopen, setisopen] = useState(false);
   const {data}=useFetchGroup("http://localhost:3000/api/groups");
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
+
 
   return <>
   <div className="min-h-screen flex flex-col md:grid md:grid-cols-4 relative">
@@ -21,7 +23,7 @@ export const Layout = ({children}) => {
   } transition-transform duration-300 md:relative md:translate-x-0  md:h-full`}
 >
   
-  <Sidebar setisopen={setisopen} groups={data}/>
+  <Sidebar setisopen={setisopen} groups={data} setactiveGroup={setactiveGroup}/>
   <button
     className="absolute top-4 right-4 p-2 bg-gray-200 rounded md:hidden"
     onClick={toggleSidebar}
@@ -32,15 +34,17 @@ export const Layout = ({children}) => {
 
 {/* Main Content */}
 <div className="md:col-span-3 flex-1 flex flex-col">
-  <div className="bg-[#001F8B] p-4 flex justify-between items-center text-white">
-    <p>Navbar</p>
+  {
+    activeGroup?<div className="bg-[#001F8B] p-4 flex justify-between items-center text-white">
+    <p>{activeGroup}</p>
     <button
       className="md:hidden p-2 bg-gray-200 rounded text-black"
       onClick={toggleSidebar}
     >
       Menu
     </button>
-  </div>
+  </div>:<></>
+  }
   <div className="bg-[#DAE5F5]  flex-1">
     <p>{children}</p>
   </div>
