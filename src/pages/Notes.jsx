@@ -17,8 +17,8 @@ const Notes = () => {
     if(!groupId,!content) return;
      try {
       const res =await createNote(groupId,content);
-      setnotes((notes)=>{[...notes,res.data]})
-      
+      setnotes([...notes,res.data])
+      setcontent('')
       console.log("Note created sucessfully")
      } catch (error) {
       console.log("some error occur white creating notes")
