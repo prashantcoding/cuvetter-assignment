@@ -1,10 +1,14 @@
+import { useState } from "react";
+import Modal from "./Modal";
 
 
-export const Sidebar = () => {
+export const Sidebar = ({setisopen}) => {
+  
+  
   return (
     <>
       {/* Pop-up */}
-      <div className="absolute w-16 h-16 bg-[#001F8B] rounded-full z-10 bottom-5 right-5 -translate-y-full flex justify-center align-middle text-white text-5xl"><p>+</p></div>
+      <div className="absolute w-16 h-16 bg-[#001F8B] rounded-full z-10 bottom-5 right-5 -translate-y-full flex justify-center align-middle text-white text-5xl" onClick={()=>{setisopen(true)}}><p>+</p></div>
 
       <div className="p-4">
         <h3 className="text-center mb-4 text-2xl font-bold">Pocket Notes</h3>
@@ -14,7 +18,11 @@ export const Sidebar = () => {
           </div>
           <p className="ml-2 text-lg font-semibold text-white">My notes</p>
         </div>
+        
+       
       </div>
+      
+     
     </>
   );
 };
