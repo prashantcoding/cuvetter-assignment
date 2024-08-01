@@ -1,11 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import  { useState, useRef, useEffect } from 'react';
 import { colors } from '../utils/colors';
+import { createGroup } from '../utils/api';
 
 const Modal = ({ isOpen, onClose }) => {
   const [groupName, setGroupName] = useState('');
   const [color, setColor] = useState('blue');
   const modalRef = useRef(null);
 
+  
+  
   useEffect(() => {
     // Function to handle clicks outside the modal
     const handleClickOutside = (event) => {
@@ -25,11 +28,19 @@ const Modal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Group Name:', groupName);
-    console.log('Selected Color:', color);
+    if(!groupName||!color) return;
+     try {
+      console.log("groupName",groupName)
+      console.log("color",color)
+      const res= await createGroup(groupName,color);
+      console.log(res);
+      alert("group created successfully")
+     } catch (error) {
+        console.log(error)
+     }
+     
     onClose();
   };
 
@@ -55,16 +66,20 @@ const Modal = ({ isOpen, onClose }) => {
           <div>
             <label className="block text-sm font-medium text-gray-700">Choose Color</label>
             <div className="flex space-x-2 mt-2">
-            {Object.entries(colors).map(([colorName, colorCode]) => (
-  <button
-    key={colorName}
-    type="button"
-    className={`w-8 h-8 rounded-full border-2 ${color === colorName ? 'border-black' : 'border-transparent'} bg-[${colorCode}]`}
-    onClick={() => setColor(colorCode)}
-    style={{ backgroundColor: colorCode }} 
-  />
-))}
-
+              {Object.entries(colors).map(([colorName, colorCode]) => (
+                <div key={colorName} className="relative">
+                  <button
+                    type="button"
+                    className={`w-12 h-12 rounded-full border-2 ${color === colorCode ? 'border-white border-5' : 'border-transparent'} bg-[${colorCode}] opacity-75 hover:opacity-100`}
+                    onClick={() => setColor(colorCode)}
+                    style={{ backgroundColor: colorCode }}
+                  >
+                    {color === colorCode && (
+                      <span className="absolute mb-2 inset-0 flex items-center justify-center text-white text-2xl font-bold">+</span>
+                    )}
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
           <div className="flex justify-end space-x-2 mt-4">
@@ -76,8 +91,9 @@ const Modal = ({ isOpen, onClose }) => {
               Cancel
             </button>
             <button
-              type="submit"
+              
               className="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+             
             >
               Create
             </button>

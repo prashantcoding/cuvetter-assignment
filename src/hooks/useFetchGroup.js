@@ -1,17 +1,39 @@
-import React, { useEffect } from "react";
+import axios, { Axios } from "axios";
+import  { useEffect, useState } from "react";
 
-const useFetchGroup = () => {
+const useFetchGroup = (url,dependency) => {
     const [loading, setloading] = useState(false);
     const [data, setdata] = useState([]);
     const [error, seterror] = useState();
     
     
     useEffect(() => {
-      const getNotes=()=>{
-        return <></>
+      const getNotes=async()=>{
+        setloading(true)
+         axios({
+          url:url,
+          method:"get"
+    
+         
+        }).then((res)=>{
+          console.log("res",res)
+          setdata(res.data);
+        }).catch((err)=>{
+          console.log(err);
+        }).finally(()=>{
+          setloading(false)
+        })
+        
       }
-      getNotes();
-    }, []);
+      try {
+        getNotes();
+        
+      } catch (error) {
+        seterror(error)
+        setloading(false)
+      }
+      
+    }, [dependency]);
     
     
   return {loading,data,error};

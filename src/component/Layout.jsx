@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import Modal from "./Modal";
+import useFetchGroup from "../hooks/useFetchGroup";
 
 export const Layout = ({children}) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isopen, setisopen] = useState(false);
+  const {data}=useFetchGroup("http://localhost:3000/api/groups");
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
@@ -19,7 +21,7 @@ export const Layout = ({children}) => {
   } transition-transform duration-300 md:relative md:translate-x-0  md:h-full`}
 >
   
-  <Sidebar setisopen={setisopen}/>
+  <Sidebar setisopen={setisopen} groups={data}/>
   <button
     className="absolute top-4 right-4 p-2 bg-gray-200 rounded md:hidden"
     onClick={toggleSidebar}
