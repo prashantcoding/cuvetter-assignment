@@ -1,4 +1,4 @@
-import React from 'react';
+
 import homeBackgorund from '../assets/home_background.png';
 
 const Home = () => {
