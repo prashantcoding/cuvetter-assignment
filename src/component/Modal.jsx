@@ -1,6 +1,7 @@
 import  { useState, useRef, useEffect } from 'react';
 import { colors } from '../utils/colors';
 import { createGroup } from '../utils/api';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 const Modal = ({ isOpen, onClose,setgroups}) => {
   const [groupName, setGroupName] = useState('');
@@ -38,13 +39,26 @@ const Modal = ({ isOpen, onClose,setgroups}) => {
       setgroups((group)=>[...group,res.data]);
       
      } catch (error) {
-        console.log(error)
+      
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+        });
      }
      
     onClose();
   };
 
   return (
+    <>
+    
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div
         ref={modalRef}
@@ -101,6 +115,7 @@ const Modal = ({ isOpen, onClose,setgroups}) => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

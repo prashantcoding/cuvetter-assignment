@@ -23,7 +23,18 @@ const Notes = () => {
       setcontent('')
       console.log("Note created sucessfully")
     } catch (error) {
-      console.log("some error occur white creating notes")
+      
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+        });
     }
   }
   const [isDisabled, setIsdisabled] = useState(true);

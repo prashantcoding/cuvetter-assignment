@@ -1,9 +1,10 @@
 
 import homeBackgorund from '../assets/home_background.png';
-
+import { IoIosMenu } from "react-icons/io";
 const Home = () => {
   return (
-    <div className="flex flex-col  bg-[#DAE5F5]">
+    <div className="  bg-[#DAE5F5]">
+     
       <div className="flex flex-col items-center justify-center flex-grow text-center p-4">
         {/* Centered Image with reduced dimensions */}
         <img

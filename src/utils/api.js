@@ -16,8 +16,8 @@ export const createGroup = async ( name, color ) => {
     console.log(response);
     return response;
   } catch (error) {
-    console.log("error",error)
-    throw new Error("Some error occurred while creating the group");
+    console.log(error)
+    throw new Error(error.response.data.message||error.message);
   }
 };
 
