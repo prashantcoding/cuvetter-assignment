@@ -28,7 +28,7 @@ export const Layout = ({children}) => {
   } transition-transform duration-300 md:relative md:translate-x-0  md:h-full`}
 >
   
-  <Sidebar setisopen={setisopen} groups={groups} setactiveGroup={setactiveGroup} activeGroup={activeGroup}/>
+  <Sidebar setisopen={setisopen} groups={groups} setactiveGroup={setactiveGroup} activeGroup={activeGroup} toggle={setSidebarOpen}/>
   <button
     className="absolute top-4 right-4 p-2 bg-gray-200 rounded md:hidden"
     onClick={toggleSidebar}
@@ -38,9 +38,9 @@ export const Layout = ({children}) => {
 </div>
 
 {/* Main Content */}
-<div className="md:col-span-3 flex-1 flex flex-col">
+<div className="md:col-span-3 flex-1 flex flex-col relative">
   {
-    activeGroup?<div className="bg-[#001F8B] p-4 flex justify-between items-center text-white">
+    activeGroup?<div className="bg-[#001F8B] p-4 flex justify-between items-center text-white absolute w-full">
     <p>{activeGroup}</p>
     <button
       className="md:hidden p-2 bg-gray-200 rounded text-black"
@@ -50,7 +50,7 @@ export const Layout = ({children}) => {
     </button>
   </div>:<></>
   }
-  <div className="bg-[#DAE5F5]  flex-1">
+  <div className="bg-[#DAE5F5]  flex-1 ">
     <p>{children}</p>
   </div>
 </div>

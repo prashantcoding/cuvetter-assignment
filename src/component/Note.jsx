@@ -21,7 +21,7 @@ const Note = ({note,timestamp}) => {
     return { date: formattedDate, time: formattedTime };
   };
   const {date,time}=formatDate(timestamp);
-  return  <div className="p-6 bg-white rounded-lg shadow-md">
+  return  <div className="p-6 bg-white rounded-lg shadow-md my-4">
   {/* Note Content */}
   <p className="text-base text-[#2F2F2F] mb-4 leading-relaxed">
     {note}
