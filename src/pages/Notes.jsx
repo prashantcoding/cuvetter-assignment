@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Note from "../component/Note";
 import { IoMdSend } from "react-icons/io";
 import { useParams } from "react-router";
@@ -8,7 +8,7 @@ import { createNote } from "../utils/api";
 const Notes = () => {
   const [content,setcontent]=useState('');
   const {groupId}=useParams();
-  const {data:notes}=useFetchGroup(`http://localhost:3000/api/groups/${groupId}/notes`,groupId)
+  const {data:notes}=useFetchGroup(`https://pocket-ntoes-backend.onrender.com/api/groups/${groupId}/notes`,groupId)
   const [notesdata, setnotes] = useState(notes);
   useEffect(()=>{
     setnotes(notes)
